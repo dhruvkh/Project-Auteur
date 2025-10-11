@@ -1,309 +1,329 @@
-import React, { useRef } from 'react';
+// src/pages/Home.tsx
+import React from 'react'; // Removed useRef
 import { Link } from 'react-router-dom';
-// FIX: Import Variants and useMotionValue to fix type errors.
-import { motion, useScroll, useTransform, Variants, useMotionValue } from 'framer-motion';
+import {
+  motion,
+  Variants,
+  useReducedMotion,
+  // Removed useScroll and useTransform
+} from 'framer-motion';
 import PageWrapper from '../components/PageWrapper';
 import Button from '../components/Button';
-import { QOMIX_CLASSICS } from '../constants';
 
+// -------------------- Helpers --------------------
 const WordReveal = ({ text }: { text: string }) => {
+  const reduce = useReducedMotion();
   const words = text.split(' ');
+
   const container: Variants = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.04 * i },
+      transition: reduce
+        ? { duration: 0 }
+        : { staggerChildren: 0.08, delayChildren: 0.02 * i },
     }),
   };
-  // FIX: Explicitly type animation variants with Variants to prevent type errors.
+
   const child: Variants = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100,
-      },
+      transition: reduce
+        ? { duration: 0 }
+        : { type: 'spring', damping: 18, stiffness: 140 },
     },
     hidden: {
       opacity: 0,
-      y: 20,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100,
-      },
+      y: 18,
+      transition: reduce
+        ? { duration: 0 }
+        : { type: 'spring', damping: 18, stiffness: 140 },
     },
   };
 
   return (
     <motion.h1
-      className="text-6xl md:text-8xl font-display tracking-wider mb-6 text-ink"
+      className="font-bold tracking-tight text-4xl sm:text-5xl lg:text-[clamp(2.5rem,4.5vw,3.5rem)] text-ink"
       variants={container}
       initial="hidden"
       animate="visible"
     >
-      {words.map((word, index) => (
-        <span key={index} className="inline-block overflow-hidden pb-2 -mb-2">
-          <motion.span className="inline-block" variants={child}>
-            {word}
-          </motion.span>
-          {index < words.length - 1 && ' '}
-        </span>
+      {words.map((word, i) => (
+        <React.Fragment key={i}>
+          <span className="inline-block overflow-hidden pb-[2px] -mb-[2px]">
+            <motion.span variants={child} className="inline-block">{word}</motion.span>
+          </span>
+          {i < words.length - 1 && ' '}
+        </React.Fragment>
       ))}
     </motion.h1>
   );
 };
 
+// Your five covers in /public
+const CLASSIC_TITLES = [
+  { src: '/assets/qomix/gatsby-cover.jpg', title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
+  { src: '/assets/qomix/christmas-carol-cover.jpg', title: 'A Christmas Carol', author: 'Charles Dickens' },
+  { src: '/assets/qomix/chekhov-stories-cover.jpg', title: 'The Great Stories', author: 'Anton Chekhov' },
+  { src: '/assets/qomix/metamorphis-cover.jpg', title: 'Metamorphosis', author: 'Franz Kafka' },
+  { src: '/assets/qomix/oldman-cover.jpg', title: 'The Old Man and the Sea', author: 'Ernest Hemingway' },
+];
+
 const Home: React.FC = () => {
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
+  const reduce = useReducedMotion();
 
-  const y1 = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const y2 = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const y3 = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  // FIX: Use useMotionValue instead of useState for compatibility with useTransform.
-  const mouseX = useMotionValue(0);
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        mouseX.set(e.clientX - rect.left);
-    }
-  };
-  const parallaxX1 = useTransform(mouseX, [0, heroRef.current?.clientWidth || 0], ['-5%', '5%']);
-  const parallaxX2 = useTransform(mouseX, [0, heroRef.current?.clientWidth || 0], ['-3%', '3%']);
-  const parallaxX3 = useTransform(mouseX, [0, heroRef.current?.clientWidth || 0], ['-1%', '1%']);
+  // NOTE: Parallax hooks (useRef, useScroll, useTransform) have been removed.
 
   return (
     <PageWrapper>
-      {/* Hero Section: The Living Comic Panel */}
-      <section 
-        ref={heroRef}
-        onMouseMove={handleMouseMove}
-        className="relative min-h-screen h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-paper"
-      >
-        {/* Background Image Gallery - Elegant Framing */}
-        <div className="absolute inset-0 z-0">
-          {/* Subtle background books positioned as elegant frame elements */}
-          <motion.div 
-            style={{ y: y3, x: parallaxX3 }} 
-            className="absolute top-[10%] left-[5%] z-0"
-            initial={{ opacity: 0, x: -100, rotate: -10 }}
-            animate={{ opacity: 0.7, x: 0, rotate: -8 }}
-            transition={{ duration: 2, delay: 0.5 }}
-          >
-            <img 
-              src={QOMIX_CLASSICS[0].imageUrl} 
-              alt="Gatsby Art" 
-              className="w-24 md:w-32 h-auto object-cover shadow-xl"
-            />
-          </motion.div>
+      {/* ===================== HERO (Dynamic Art Panel) ===================== */}
+      <section className="bg-paper overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            
+            {/* Left: Image as a "Dynamic Art Panel" */}
+            <motion.div
+              className="relative order-2 lg:order-1"
+              initial={reduce ? undefined : { opacity: 0, y: 40, scale: 0.98 }}
+              animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            >
+              <div className="rounded-2xl border-[2.5px] border-ink/90 shadow-ink-panel overflow-hidden">
+                {/* KEY FIX: aspect-square ensures the container is a square, preventing cropping */}
+                <div className="relative w-full aspect-square">
+                  <img
+                    src="/assets/qomix/hero-image.png"
+                    alt="Library of the Future"
+                    className="absolute inset-0 h-full w-full object-cover bg-transparent"
+                  />
+                  <div className="halftone pointer-events-none absolute inset-0 rounded-2xl opacity-[0.06]" />
+                </div>
+              </div>
+            </motion.div>
 
-          <motion.div 
-            style={{ y: y1, x: parallaxX1 }} 
-            className="absolute top-[15%] right-[5%] z-0"
-            initial={{ opacity: 0, x: 100, rotate: 10 }}
-            animate={{ opacity: 0.8, x: 0, rotate: 12 }}
-            transition={{ duration: 2, delay: 0.7 }}
-          >
-            <img 
-              src={QOMIX_CLASSICS[6].imageUrl} 
-              alt="Old Man Art" 
-              className="w-28 md:w-36 h-auto object-cover shadow-xl"
-            />
-          </motion.div>
+            {/* Right: Text Content (Final Version with Added Line) */}
+            <div className="text-center lg:text-left order-1 lg:order-2">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+                  },
+                }}
+                initial="hidden"
+                animate="visible"
+              >
+                {/* Kicker for the company name */}
+                <motion.span
+                  variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="block text-sm font-semibold tracking-widest text-ink/60 uppercase"
+                >
+                  Auteur Pte Ltd
+                </motion.span>
 
-          <motion.div 
-            style={{ y: y2, x: parallaxX2 }} 
-            className="absolute bottom-[15%] left-[8%] z-0"
-            initial={{ opacity: 0, x: -100, rotate: 5 }}
-            animate={{ opacity: 0.75, x: 0, rotate: 6 }}
-            transition={{ duration: 2, delay: 0.9 }}
-          >
-            <img 
-              src={QOMIX_CLASSICS[2].imageUrl} 
-              alt="Metamorphosis Art" 
-              className="w-20 md:w-28 h-auto object-cover shadow-xl"
-            />
-          </motion.div>
+                {/* Main Headline with controlled line breaks */}
+                <h1 className="mt-4 font-bold tracking-tight text-4xl sm:text-5xl lg:text-[clamp(2.8rem,5vw,3rem)] text-ink">
+                  <motion.div
+                    variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                  >
+                    Building the future of reading — a visual-first universe of stories and ideas.
+                  </motion.div>
+                  
+                </h1>
+              </motion.div>
+              
+              {/* Body paragraph with improved spacing */}
+              <motion.p
+                className="mt-8 text-[clamp(1rem,1.4vw,1.2rem)] leading-relaxed text-ink/80 max-w-prose mx-auto lg:mx-0"
+                initial={reduce ? undefined : { opacity: 0, y: 12 }}
+                animate={reduce ? undefined : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                Through its two pioneering imprints, QOMIX CLASSICS and QANVAS, Auteur blends art, narrative, and technology to reimagine how people read, learn, and connect.
+              </motion.p>
 
-          <motion.div 
-            style={{ y: y3, x: parallaxX3 }} 
-            className="absolute bottom-[10%] right-[8%] z-0"
-            initial={{ opacity: 0, x: 100, rotate: -5 }}
-            animate={{ opacity: 0.7, x: 0, rotate: -6 }}
-            transition={{ duration: 2, delay: 1.1 }}
-          >
-            <img 
-              src={QOMIX_CLASSICS[4].imageUrl} 
-              alt="Room Art" 
-              className="w-26 md:w-32 h-auto object-cover shadow-xl"
-            />
-          </motion.div>
-        </div>
+              {/* === THIS IS THE NEWLY ADDED PARAGRAPH === */}
+              <motion.p
+                className="mt-4 text-[clamp(1rem,1.4vw,1.2rem)] leading-relaxed text-ink/80 max-w-prose mx-auto lg:mx-0"
+                initial={reduce ? undefined : { opacity: 0, y: 12 }}
+                animate={reduce ? undefined : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.9 }} // Delay adjusted
+              >
+                QOMIX CLASSICS transforms the world’s greatest literature into collectible graphic art; QANVAS turns today’s most urgent nonfiction into visually immersive storytelling.
+              </motion.p>
 
-        {/* Main Content - Clean and Prominent */}
-        <motion.div 
-          style={{ opacity }} 
-          className="relative z-10 max-w-5xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        >
-          <div className="mb-8">
-            <WordReveal text="Stories that Shape Worlds" />
+              {/* CTA Buttons */}
+              <motion.div
+                className="mt-10 flex flex-wrap gap-3 justify-center lg:justify-start"
+                initial={reduce ? undefined : { opacity: 0, y: 10 }}
+                animate={reduce ? undefined : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 1.0 }} // Delay adjusted
+              >
+                <Link to="/qomix">
+                  <Button variant="primary" className="px-7 py-[.8rem]">
+                    Explore Qomix
+                  </Button>
+                </Link>
+                <Link to="/qanvas">
+                  <Button variant="secondary" className="px-7 py-[.8rem] !border-ink/50 hover:!border-ink">
+                    Discover Qanvas
+                  </Button>
+                </Link>
+              </motion.div>
+
+              {/* Final, restyled tagline */}
+              <motion.p
+                className="mt-12 text-sm font-semibold tracking-widest text-ink/60 uppercase"
+                initial={reduce ? undefined : { opacity: 0, y: 12 }}
+                animate={reduce ? undefined : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.1 }} // Delay adjusted
+              >
+                One Vision &bull; Two Worlds &bull; Infinite Imagination
+              </motion.p>
+
+            </div>
+
           </div>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-lg md:text-xl text-ink/70 max-w-3xl mx-auto mb-12 text-balance leading-relaxed"
-          >
-            Auteur Global is a creative syndicate that leverages the power of visual storytelling to build iconic brands and captivate global audiences.
-          </motion.p>
+        </div>
+      </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.5 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <Link to="/qomix">
-              <Button variant="primary" className="px-8 py-3 text-lg">Explore Qomix</Button>
-            </Link>
-            <Link to="/qanvas">
-              <Button variant="secondary" className="px-8 py-3 text-lg !border-ink/30 hover:!border-ink">Discover Qanvas</Button>
-            </Link>
-          </motion.div>
+      {/* ===================== QUOTE (Editorial Spread Design) ===================== */}
+      <section className="bg-paper py-20 md:py-28">
+        <motion.div
+          className="mx-auto max-w-7xl px-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Column 1: Giant Decorative Quote Mark */}
+            <div className="hidden lg:flex lg:col-span-4 items-center justify-center">
+              <span 
+                aria-hidden="true" 
+                className="text-[20rem] font-serif text-ink/10 leading-none select-none"
+              >
+                “
+              </span>
+            </div>
+
+            {/* Column 2: The Quote and Attribution */}
+            <div className="lg:col-span-8">
+              <blockquote>
+                <p className="text-3xl md:text-4xl font-serif text-ink/90 leading-relaxed text-balance">
+                  The graphic novel has the potential to be an incredible gateway into the world's greatest literature.{' '}
+                  <span className="font-bold text-ink">Qomix Classics holds the key.</span>
+                </p>
+                <footer>
+                  <p className="mt-8 text-xl text-ink/80">
+                    <span className="font-semibold text-ink">&mdash; Marcus du Sautoy</span>
+                    <br />
+                    <span className="text-base">
+                      Professor for the Public Understanding of Science, University of Oxford, UK
+                    </span>
+                  </p>
+                </footer>
+              </blockquote>
+            </div>
+            
+          </div>
         </motion.div>
       </section>
 
-      {/* Divisions Section */}
-      <section className="py-20 bg-gradient-to-br from-panel-muted via-panel-muted/80 to-panel-muted relative z-20 border-t-2 border-panel-dark/20">
-        {/* Decorative Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 w-32 h-32 border-2 border-ink/20 rounded-full"></div>
-          <div className="absolute top-20 right-20 w-24 h-24 border-2 border-ink/20 rounded-lg rotate-45"></div>
-          <div className="absolute bottom-20 left-20 w-28 h-28 border-2 border-ink/20 rounded-full"></div>
-          <div className="absolute bottom-10 right-10 w-20 h-20 border-2 border-ink/20 rounded-lg rotate-12"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <motion.h2 
-            className="text-5xl font-display text-center mb-16 text-ink"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      {/* (The rest of your page: Divisions, Final CTA, etc. remains unchanged) */}
+      
+      {/* ===================== DIVISIONS ===================== */}
+      <section className="py-18 md:py-20 bg-gradient-to-br from-panel-muted via-panel-muted/80 to-panel-muted border-t-2 border-panel-dark/20">
+        <div className="container mx-auto px-6">
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-center mb-14 text-ink"
+            initial={reduce ? undefined : { opacity: 0, y: 18 }}
+            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
             Our Divisions
           </motion.h2>
-          <div className="grid md:grid-cols-3 gap-10 text-center">
-            {/* Qomix */}
-            <motion.div
-              className="flex flex-col items-center p-8 bg-paper/80 backdrop-blur-sm rounded-2xl border-2 border-transparent hover:border-ink/20 hover:bg-paper transition-all duration-300 shadow-lg hover:shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <h3 className="text-4xl font-display text-ink mb-2">Qomix</h3>
-              <p className="text-body-neutral mb-4 text-balance flex-grow">The graphic novel imprint for classic and contemporary literature.</p>
-              <Link to="/qomix" className="mt-auto">
-                <Button variant="secondary" className="!border-ink/50 hover:!border-ink">Explore Qomix</Button>
-              </Link>
-            </motion.div>
-            {/* Qanvas */}
-            <motion.div
-              className="flex flex-col items-center p-8 bg-paper/80 backdrop-blur-sm rounded-2xl border-2 border-transparent hover:border-ink/20 hover:bg-paper transition-all duration-300 shadow-lg hover:shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <h3 className="text-4xl font-display text-ink mb-2">Qanvas</h3>
-              <p className="text-body-neutral mb-4 text-balance flex-grow">The world's first graphic news and information syndication platform.</p>
-              <Link to="/qanvas" className="mt-auto">
-                <Button variant="secondary" className="!border-ink/50 hover:!border-ink">Discover Qanvas</Button>
-              </Link>
-            </motion.div>
-            {/* Ideographic */}
-            <motion.div
-              className="flex flex-col items-center p-8 bg-paper/80 backdrop-blur-sm rounded-2xl border-2 border-transparent hover:border-ink/20 hover:bg-paper transition-all duration-300 shadow-lg hover:shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <h3 className="text-4xl font-display text-ink mb-2">Ideographic</h3>
-              <p className="text-body-neutral mb-4 text-balance flex-grow">A story design studio for category-defining brands.</p>
-              <Link to="/ideographic" className="mt-auto">
-                <Button variant="secondary" className="!border-ink/50 hover:!border-ink">Learn More</Button>
-              </Link>
-            </motion.div>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-10 text-center max-w-4xl mx-auto">
+            <DivisionCard
+              title="Qomix Classics"
+              body="Iconic literature, faithfully comicised — scholar-guided & multilingual."
+              link="/qomix"
+              cta="Explore Qomix"
+            />
+            <DivisionCard
+              title="Qanvas"
+              body="Graphic news & information — built for the visual age."
+              link="/qanvas"
+              cta="Discover Qanvas"
+            />
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-ink via-ink/95 to-ink relative overflow-hidden">
-        {/* Dynamic Background Pattern */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(254,207,10,0.1)_0%,transparent_50%)]"></div>
-          <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(254,207,10,0.08)_0%,transparent_50%)]"></div>
-          {/* Animated geometric elements */}
-          <motion.div 
-            className="absolute top-10 right-20 w-32 h-32 border border-paper/20 rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          ></motion.div>
-          <motion.div 
-            className="absolute bottom-16 left-16 w-24 h-24 border border-paper/20 rounded-lg"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          ></motion.div>
-        </div>
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <motion.h2 
-            className="text-4xl md:text-5xl font-display text-paper mb-6 max-w-3xl mx-auto text-balance"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      {/* ===================== FINAL CTA ===================== */}
+      <section className="py-22 md:py-24 bg-gradient-to-r from-ink via-ink/95 to-ink">
+        <div className="container mx-auto px-6 text-center">
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-paper mb-6 max-w-3xl mx-auto"
+            initial={reduce ? undefined : { opacity: 0, y: 20 }}
+            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
             Partner with a new kind of creative syndicate.
           </motion.h2>
-          <motion.p 
-            className="text-lg text-paper/80 max-w-2xl mx-auto mb-12 text-balance leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+          <motion.p
+            className="text-lg text-paper/80 max-w-2xl mx-auto mb-10 leading-relaxed"
+            initial={reduce ? undefined : { opacity: 0, y: 14 }}
+            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Whether you're adapting a classic, reporting on world events, or building a category-defining brand, our visual storytelling expertise will bring your vision to life.
+            Whether you&apos;re adapting a classic, reporting on world events, or building a
+            category-defining brand, our visual storytelling expertise will bring your vision to life.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Link to="/contact">
-              <Button variant="secondary" className="text-lg px-12 py-4 !bg-paper !text-ink !border-paper hover:!bg-paper/90 hover:!border-paper/90 shadow-xl">Let's Create Together</Button>
-            </Link>
-          </motion.div>
+          <Link to="/contact">
+            <Button
+              variant="secondary"
+              className="text-lg px-12 py-4 !bg-paper !text-ink !border-paper hover:!bg-paper/90 hover:!border-paper/90 shadow-xl"
+            >
+              Let&apos;s Create Together
+            </Button>
+          </Link>
         </div>
       </section>
     </PageWrapper>
   );
 };
+
+// Small card for divisions
+function DivisionCard({
+  title, body, link, cta,
+}: { title: string; body: string; link: string; cta: string }) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      className="flex flex-col items-center p-8 bg-paper/80 backdrop-blur-sm rounded-2xl border-2 border-transparent hover:border-ink/20 hover:bg-paper transition-all duration-300 shadow-ink-soft hover:shadow-ink-panel"
+      initial={reduce ? undefined : { opacity: 0, y: 14 }}
+      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.45 }}
+    >
+      <h3 className="text-3xl md:text-4xl font-bold text-ink mb-2">{title}</h3>
+      <p className="text-body-neutral mb-4 text-balance flex-grow">{body}</p>
+      <Link to={link} className="mt-auto">
+        <Button variant="secondary" className="!border-ink/50 hover:!border-ink">
+          {cta}
+        </Button>
+      </Link>
+    </motion.div>
+  );
+}
 
 export default Home;

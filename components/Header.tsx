@@ -37,17 +37,23 @@ const Header: React.FC = () => {
             ))}
           </nav>
 
-          {/* Contact Button - Right */}
+          {/* Contact Button - Right (REDESIGNED) */}
           <div className="hidden md:flex flex-1 justify-end">
             <Link to="/contact" data-cursor-hover="true">
-              <Button variant="secondary" className="px-6 py-2 !border-ink/50 hover:!border-ink hover:!text-ink hover:!bg-transparent">Contact</Button>
+              {/* UPDATED: New classes for a pill-shaped button with a fill-on-hover effect */}
+              <Button 
+                variant="secondary" 
+                className="rounded-full px-6 py-2 !border-ink !bg-transparent hover:!bg-ink hover:!text-paper transition-colors duration-200"
+              >
+                Contact
+              </Button>
             </Link>
           </div>
 
           {/* Mobile Nav Toggle */}
           <div className="md:hidden">
             <button onClick={() => setIsOpen(!isOpen)} className="text-ink focus:outline-none" data-cursor-hover="true">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w.org/2000/svg">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -77,7 +83,13 @@ const Header: React.FC = () => {
               </NavLink>
             ))}
             <Link to="/contact" onClick={() => setIsOpen(false)} data-cursor-hover="true">
-                <Button variant='primary' className='!bg-ink !text-paper hover:!bg-ink-soft'>Contact</Button>
+              {/* UPDATED: Added rounded-full for shape consistency and adjusted padding */}
+              <Button 
+                variant='primary' 
+                className='rounded-full px-8 py-2 !bg-ink !text-paper hover:!bg-ink-soft'
+              >
+                Contact
+              </Button>
             </Link>
           </nav>
         </div>

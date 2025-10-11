@@ -9,8 +9,11 @@ import CustomCursor from './components/CustomCursor';
 import Home from './pages/Home';
 import Qomix from './pages/Qomix';
 import Qanvas from './pages/Qanvas';
-import Ideographic from './pages/Ideographic';
 import Contact from './pages/Contact';
+import Vision from './pages/Vision';
+import Team from './pages/Team';
+import Advisors from './pages/Advisors';
+import WhoWeAre from './pages/WhoWeAre';
 import ComingSoon from './pages/ComingSoon';
 
 const AnimatedRoutes = () => {
@@ -18,17 +21,23 @@ const AnimatedRoutes = () => {
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
+      <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/qomix" element={<Qomix />} />
         <Route path="/qanvas" element={<Qanvas />} />
-        <Route path="/ideographic" element={<Ideographic />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/vision" element={<Vision />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/advisors" element={<Advisors />} />
+        <Route path="/who-we-are" element={<WhoWeAre />} />
 
-        {/* Footer links */}
-        <Route path="/vision" element={<ComingSoon pageName="Vision" />} />
+        {/* Header navigation links */}
+        <Route path="/coming-soon" element={<ComingSoon pageName="Coming Soon" />} />
         <Route path="/team" element={<ComingSoon pageName="Team" />} />
         <Route path="/advisors" element={<ComingSoon pageName="Advisors" />} />
+        
+        {/* Footer links */}
+        <Route path="/WhoWeAre" element={<ComingSoon pageName="Who We Are" />} />
         
         {/* Fallback for any other route */}
         <Route path="*" element={<Home />} />

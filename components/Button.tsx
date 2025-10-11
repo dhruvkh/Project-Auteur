@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const baseStyles = 'px-8 py-3 font-display tracking-wider uppercase transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-paper';
+  const baseStyles = 'px-8 py-3 font-semibold tracking-wider uppercase transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-paper';
 
   const variantStyles = {
     primary: 'bg-primary text-secondary hover:bg-ink hover:text-paper',

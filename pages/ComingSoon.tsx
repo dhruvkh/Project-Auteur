@@ -21,7 +21,7 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ pageName }) => {
   return (
     <PageWrapper>
       <div className="container mx-auto px-6 py-24 flex flex-col items-center justify-center text-center min-h-[60vh]">
-        <h1 className="text-6xl font-display mb-4">{pageName}</h1>
+        <h1 className="text-6xl font-bold mb-4">{pageName}</h1>
         <p className="text-body-neutral text-2xl mb-8">Coming Soon</p>
         
         {!submitted ? (

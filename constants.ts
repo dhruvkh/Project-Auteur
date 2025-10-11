@@ -3,13 +3,14 @@ import type { NavLink, Book, Service } from './types';
 export const NAV_LINKS: NavLink[] = [
   { name: 'Qomix', path: '/qomix' },
   { name: 'Qanvas', path: '/qanvas' },
-  { name: 'Ideographic', path: '/ideographic' },
-];
-
-export const FOOTER_LINKS: NavLink[] = [
   { name: 'Vision', path: '/vision' },
   { name: 'Team', path: '/team' },
   { name: 'Advisors', path: '/advisors' },
+];
+
+export const FOOTER_LINKS: NavLink[] = [
+  { name: 'Who we are', path: '/who-we-are' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 export const QOMIX_CLASSICS: Book[] = [
