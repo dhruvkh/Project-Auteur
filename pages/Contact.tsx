@@ -95,17 +95,30 @@ const Contact: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold text-ink tracking-tight">Let's Create Together</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-ink tracking-tight">Partnerships, Ideas, Collaborations</h1>
             <p className="mt-4 text-xl md:text-2xl text-ink/70 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              Ready to transform your story into an unforgettable visual experience? Reach out to <span className="text-ink font-semibold">Neena & Payal</span> to start the conversation.
+              We are listening
             </p>
-            <div className="mt-10 pt-10 border-t border-panel-dark">
-              <h3 className="text-sm font-semibold tracking-widest text-ink/60 uppercase">
-                Direct Contact
-              </h3>
-              <a href="mailto:hello@auteur.global" className="mt-3 inline-block text-lg text-ink hover:text-primary transition-colors">
-                hello@auteur.global
+            <p className="mt-10 text-lg text-ink/80">
+              Reach out to us to start a conversation<br/>
+              <a href="mailto:Contact@auteurglobal.com" className="text-ink hover:text-primary transition-colors">
+                Contact@auteurglobal.com
               </a>
+            </p>
+            <div className="mt-8 pt-8 border-t border-panel-dark">
+              <h3 className="text-sm font-semibold tracking-widest text-ink/60 uppercase mb-4">
+                Our Presence
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <p className="text-lg font-semibold text-ink">Auteur Pte Ltd</p>
+                  <p className="text-ink/70">Singapore</p>
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-ink">Optiquesutra Pvt Ltd</p>
+                  <p className="text-ink/70">Delhi, India</p>
+                </div>
+              </div>
             </div>
           </motion.div>
 

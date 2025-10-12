@@ -83,7 +83,7 @@ const About: React.FC = () => {
             <motion.div variants={itemVariants}>
               <h3 className="text-2xl font-bold text-ink mb-3">Setting New Benchmarks</h3>
               <p className="text-ink/80">
-                With collaborators across Europe and Asia, we aim to set new standards in visual-textual storytelling for a global audience.
+                With collaborators across US, Europe and Asia, we aim to set new standards in visual-textual storytelling for a global audience.
               </p>
             </motion.div>
           </motion.div>
