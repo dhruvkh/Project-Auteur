@@ -64,7 +64,7 @@ const Advisors: React.FC = () => {
       {/* Page Header */}
       <section className="text-center py-16 md:py-20 bg-panel-muted border-b-2 border-panel-dark">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
-          <h1 className="text-5xl md:text-6xl font-bold text-ink">Global Advisory Board</h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-ink">The Global Talwarts Steering the Auteur Vision</h1>
           <p className="mt-4 text-lg text-ink/70 max-w-3xl mx-auto">
             A distinguished council of global leaders, industry pioneers, and creative visionaries guiding the mission of Auteur.
           </p>

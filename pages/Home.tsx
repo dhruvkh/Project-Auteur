@@ -93,7 +93,7 @@ const Home: React.FC = () => {
                 {/* KEY FIX: aspect-square ensures the container is a square, preventing cropping */}
                 <div className="relative w-full aspect-square">
                   <img
-                    src="/assets/qomix/hero-image.png"
+                    src="/assets/homepage.jpg"
                     alt="Library of the Future"
                     className="absolute inset-0 h-full w-full object-cover bg-transparent"
                   />
@@ -130,7 +130,7 @@ const Home: React.FC = () => {
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                   >
-                    Building the future of reading — a visual-first universe of stories and ideas.
+                    A COMIC R-EVOLUTION
                   </motion.div>
                   
                 </h1>
@@ -143,7 +143,7 @@ const Home: React.FC = () => {
                 animate={reduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
               >
-                Through its two pioneering imprints, QOMIX CLASSICS and QANVAS, Auteur blends art, narrative, and technology to reimagine how people read, learn, and connect.
+                A groundbreaking intervention to make serious and complex storytelling accessible and engaging to new generations. Auteur is pioneering the deployment of the comic-graphic form to tell the stories that matter.
               </motion.p>
 
               {/* === THIS IS THE NEWLY ADDED PARAGRAPH === */}
@@ -153,7 +153,7 @@ const Home: React.FC = () => {
                 animate={reduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.9 }} // Delay adjusted
               >
-                QOMIX CLASSICS transforms the world’s greatest literature into collectible graphic art; QANVAS turns today’s most urgent nonfiction into visually immersive storytelling.
+                From the giants of world literature to original commissioned narratives; from graphic histories, knowledge series, and thematic anthologies that reframe science, philosophy, and contemporary culture through the comic medium, we are confronting the crisis of reading in our time through our two imprints, Qomix Classics and Qanvas.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -165,12 +165,12 @@ const Home: React.FC = () => {
               >
                 <Link to="/qomix">
                   <Button variant="primary" className="px-7 py-[.8rem]">
-                    Explore Qomix
+                    Qomix Classics
                   </Button>
                 </Link>
                 <Link to="/qanvas">
                   <Button variant="secondary" className="px-7 py-[.8rem] !border-ink/50 hover:!border-ink">
-                    Discover Qanvas
+                    Qanvas
                   </Button>
                 </Link>
               </motion.div>
@@ -247,18 +247,18 @@ const Home: React.FC = () => {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6 }}
           >
-            Our Divisions
+            Our Imprints
           </motion.h2>
           <div className="grid md:grid-cols-2 gap-8 md:gap-10 text-center max-w-4xl mx-auto">
             <DivisionCard
               title="Qomix Classics"
-              body="Iconic literature, faithfully comicised — scholar-guided & multilingual."
+              body="Qomix Classics is committed to creating the definitive graphic editions of the world’s great books."
               link="/qomix"
               cta="Explore Qomix"
             />
             <DivisionCard
               title="Qanvas"
-              body="Graphic news & information — built for the visual age."
+              body="Deploying the comic form, Qanvas seeks to explore and interpret crucial events and ideas impacting the world."
               link="/qanvas"
               cta="Discover Qanvas"
             />

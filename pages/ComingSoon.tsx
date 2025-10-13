@@ -26,7 +26,9 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ pageName }) => {
         
         {!submitted ? (
           <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col sm:flex-row gap-4">
+            <label htmlFor="coming-soon-email" className="sr-only">Email address</label>
             <input 
+              id="coming-soon-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -34,7 +36,7 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ pageName }) => {
               required
               className="flex-grow w-full bg-paper border-2 border-panel-dark focus:border-primary p-3 focus:outline-none transition-colors"
             />
-            <Button type="submit" variant="primary">Notify Me</Button>
+            <Button type="submit" variant="primary" aria-label="Notify me when this page is live">Notify Me</Button>
           </form>
         ) : (
           <p className="text-secondary text-lg">Thank you! We'll let you know when this page is live.</p>

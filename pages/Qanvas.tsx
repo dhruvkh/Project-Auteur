@@ -15,15 +15,15 @@ const QANVAS_TITLES = [
     title: 'More Than Zero',
     description: 'The Graphic History of Mathematics',
     author: 'By Marcus du Sautoy with Solé Otero',
-    imageUrl: 'https://images.unsplash.com/photo-1635070045099-5551fa18b3f2?auto=format&fit=crop&w=800&q=80', // Stock image
-    isComingSoon: true,
+    imageUrl: 'assets/qanvas/more-than-zero.jpg', // Stock image
+    isComingSoon: false,
   },
   {
     title: 'The Story of Skin',
     description: 'Description not available',
     author: 'By Sharad Paul with Rodrigo Luján',
-    imageUrl: 'https://images.unsplash.com/photo-1587560699334-cc426240169f?auto=format&fit=crop&w=800&q=80', // Stock image
-    isComingSoon: true,
+    imageUrl: 'assets/qanvas/story-skin.jpg', // Stock image
+    isComingSoon: false,
   },
 ];
 

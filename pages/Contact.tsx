@@ -28,14 +28,14 @@ const Contact: React.FC = () => {
     setInquiryType('portfolio');
     setFormData(prevState => ({
       ...prevState,
-      message: 'Hello, I would like to formally request access to the Auteur portfolio. Thank you.',
+      message: 'Hello, I would like to request access to the Auteur Catalogue. Thank you.',
     }));
   };
 
   const handleGeneralInquiry = () => {
     setInquiryType('general');
-    // Clear message only if it's the portfolio default
-    if (formData.message === 'Hello, I would like to formally request access to the Auteur portfolio. Thank you.') {
+    // Clear message only if it's the catalogue default
+    if (formData.message === 'Hello, I would like to request access to the Auteur Catalogue. Thank you.') {
       setFormData(prevState => ({ ...prevState, message: '' }));
     }
   };
@@ -166,7 +166,7 @@ const Contact: React.FC = () => {
                     General Inquiry
                   </button>
                   <button type="button" onClick={handlePortfolioRequest} className={`px-4 py-2 text-sm rounded-full transition-colors ${inquiryType === 'portfolio' ? 'bg-ink text-paper' : 'bg-panel-muted text-ink/80 hover:bg-panel-dark'}`}>
-                    Request for Portfolio
+                    Request our Catalogue
                   </button>
                 </div>
               </div>

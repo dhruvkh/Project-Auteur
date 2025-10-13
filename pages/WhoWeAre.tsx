@@ -45,7 +45,7 @@ const About: React.FC = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <p className="text-2xl md:text-3xl lg:text-4xl font-serif text-ink leading-relaxed">
-            We are a creative enterprise, with roots in Singapore and India, reimagining how stories are told, read, and remembered for a new visual age.
+            We are a creative enterprise, with roots in Singapore and India, reimagining how stories are told, read, and remembered for a our visual age.
           </p>
           <p className="mt-8 text-lg md:text-xl text-ink/70 leading-relaxed">
             Founded by veteran professionals with over three decades of experience, we bring deep creative expertise to a singular cultural mission: <span className="text-ink font-semibold">to restore reading, in the age of distraction, to the centre of human imagination</span>.
@@ -73,9 +73,9 @@ const About: React.FC = () => {
 
             {/* Pillar 2 */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-bold text-ink mb-3">Accessible Storytelling</h3>
+              <h3 className="text-2xl font-bold text-ink mb-3">In Countless Toungues</h3>
               <p className="text-ink/80">
-                Our vision involves making serious and complex storytelling accessible and engaging to new generations, from literary giants to original works.
+                Every volume we create gets translated into dozens of languages, to create a new grammar of communication worldwide.
               </p>
             </motion.div>
 

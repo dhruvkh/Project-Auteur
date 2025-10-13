@@ -25,6 +25,12 @@ const FOUNDERS = [
     bio: 'Formidable operational powerhouse; former COO of Tehelka; founder and Director of THINK; experienced leader of teams and projects. Founder of Algebra, the Arts & Ideas Club.',
     imageUrl: '/assets/team/neena-tejpal.jpg', // Add your image here
   },
+  {
+    name: 'Anila Ahuja',
+    role: 'Leads Business Development',
+    bio: 'Leads Business Development and fund-raising for Qomix. Founding team at Sanctum Wealth Pvt Ltd, managing USD 6 Bn in assets. 25+ years in wealth management.',
+    imageUrl: '/assets/team/anila-ahuja.jpg', // Add your image here
+  },
 ];
 
 const LEADERSHIP = [
@@ -40,12 +46,7 @@ const LEADERSHIP = [
     bio: 'Information and robotics engineer with focus on AI and data science. Building next generation platforms to leverage artificial intelligence for consumer businesses.',
     imageUrl: '/assets/team/andrea-rufini.jpg', // Add your image here
   },
-  {
-    name: 'Anila Ahuja',
-    role: 'Leads Business Development',
-    bio: 'Leads Business Development and fund-raising for Qomix. Founding team at Sanctum Wealth Pvt Ltd, managing USD 6 Bn in assets. 25+ years in wealth management.',
-    imageUrl: '/assets/team/anila-ahuja.jpg', // Add your image here
-  },
+  
 ];
 
 
@@ -65,7 +66,7 @@ const Team: React.FC = () => {
       {/* Page Header */}
       <section className="text-center py-16 md:py-20 bg-panel-muted border-b-2 border-panel-dark">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
-          <h1 className="text-5xl md:text-6xl font-bold text-ink">The Minds Behind Auteur</h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-ink">The Team Behind Auteur</h1>
           <p className="mt-4 text-lg text-ink/70 max-w-2xl mx-auto">
             A collective of award-winning creators, journalists, and innovators dedicated to reinventing the narrative form.
           </p>
