@@ -13,7 +13,7 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ pageName }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      console.log(`Email submitted for notification: ${email}`);
+      // Email would be sent to notification service in production
       setSubmitted(true);
     }
   };

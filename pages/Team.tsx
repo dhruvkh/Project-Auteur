@@ -102,7 +102,7 @@ const Team: React.FC = () => {
                 <div className={`flex-1 text-center lg:text-left ${index % 2 !== 0 ? 'lg:text-right' : ''}`}>
                   <p className="text-sm font-semibold tracking-widest text-ink/60 uppercase">{member.role}</p>
                   <h2 className="mt-2 text-4xl md:text-5xl font-serif text-ink">{member.name}</h2>
-                  <p className="mt-4 text-lg text-ink/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">{member.bio}</p>
+                  <p className={`mt-4 text-lg text-ink/80 leading-relaxed ${index % 2 !== 0 ? 'max-w-xl mx-auto lg:mx-0 lg:ml-auto' : 'max-w-xl mx-auto lg:mx-0'}`}>{member.bio}</p>
                 </div>
               </motion.div>
             );
@@ -118,7 +118,7 @@ const Team: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 max-w-6xl mx-auto"
+            className="flex justify-center gap-8 mt-12 flex-wrap"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -129,7 +129,7 @@ const Team: React.FC = () => {
               return (
                 <motion.div
                   key={member.name}
-                  className="bg-paper p-8 rounded-lg border border-panel-dark text-left flex flex-col"
+                  className="bg-paper p-8 rounded-lg border border-panel-dark text-center flex flex-col items-center w-80 max-w-sm"
                   variants={itemVariants}
                 >
                   <img
@@ -140,7 +140,7 @@ const Team: React.FC = () => {
                       if (imgSrc !== '/assets/team/placeholder.jpg') setImgSrc('/assets/team/placeholder.jpg');
                     }}
                   />
-                  <div className="flex-grow">
+                  <div className="flex-grow text-center">
                     <p className="text-xs font-semibold tracking-widest text-ink/60 uppercase">{member.role}</p>
                     <h3 className="mt-1 text-2xl font-serif text-ink">{member.name}</h3>
                     <p className="mt-3 text-base text-ink/80 leading-relaxed">{member.bio}</p>

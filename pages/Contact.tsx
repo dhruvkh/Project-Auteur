@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
+    // Form data would be sent to backend API in production
     setSubmitted(true);
   };
 
