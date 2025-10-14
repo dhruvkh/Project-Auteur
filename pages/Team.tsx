@@ -1,6 +1,6 @@
 // src/pages/Team.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import PageWrapper from '../components/PageWrapper';
 import { motion } from 'framer-motion';
 
@@ -76,31 +76,37 @@ const Team: React.FC = () => {
       {/* Founders Section */}
       <section className="py-20 md:py-24 bg-paper">
         <div className="container mx-auto px-6 space-y-20">
-          {FOUNDERS.map((member, index) => (
-            <motion.div
-              key={member.name}
-              className={`flex flex-col lg:flex-row items-center gap-12 ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            >
-              {/* Image */}
-              <div className="flex-shrink-0">
-                <img
-                  src={member.imageUrl}
-                  alt={member.name}
-                  className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover shadow-lg"
-                />
-              </div>
-              {/* Text Content */}
-              <div className={`flex-1 text-center lg:text-left ${index % 2 !== 0 ? 'lg:text-right' : ''}`}>
-                <p className="text-sm font-semibold tracking-widest text-ink/60 uppercase">{member.role}</p>
-                <h2 className="mt-2 text-4xl md:text-5xl font-serif text-ink">{member.name}</h2>
-                <p className="mt-4 text-lg text-ink/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">{member.bio}</p>
-              </div>
-            </motion.div>
-          ))}
+          {FOUNDERS.map((member, index) => {
+            const [imgSrc, setImgSrc] = useState(member.imageUrl);
+            return (
+              <motion.div
+                key={member.name}
+                className={`flex flex-col lg:flex-row items-center gap-12 ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              >
+                {/* Image */}
+                <div className="flex-shrink-0">
+                  <img
+                    src={imgSrc}
+                    alt={member.name}
+                    className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover shadow-lg"
+                    onError={() => {
+                      if (imgSrc !== '/assets/team/placeholder.jpg') setImgSrc('/assets/team/placeholder.jpg');
+                    }}
+                  />
+                </div>
+                {/* Text Content */}
+                <div className={`flex-1 text-center lg:text-left ${index % 2 !== 0 ? 'lg:text-right' : ''}`}>
+                  <p className="text-sm font-semibold tracking-widest text-ink/60 uppercase">{member.role}</p>
+                  <h2 className="mt-2 text-4xl md:text-5xl font-serif text-ink">{member.name}</h2>
+                  <p className="mt-4 text-lg text-ink/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">{member.bio}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
@@ -118,24 +124,30 @@ const Team: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            {LEADERSHIP.map((member) => (
-              <motion.div
-                key={member.name}
-                className="bg-paper p-8 rounded-lg border border-panel-dark text-left flex flex-col"
-                variants={itemVariants}
-              >
-                <img
-                  src={member.imageUrl}
-                  alt={member.name}
-                  className="w-24 h-24 rounded-full object-cover shadow-md mb-6"
-                />
-                <div className="flex-grow">
-                  <p className="text-xs font-semibold tracking-widest text-ink/60 uppercase">{member.role}</p>
-                  <h3 className="mt-1 text-2xl font-serif text-ink">{member.name}</h3>
-                  <p className="mt-3 text-base text-ink/80 leading-relaxed">{member.bio}</p>
-                </div>
-              </motion.div>
-            ))}
+            {LEADERSHIP.map((member) => {
+              const [imgSrc, setImgSrc] = useState(member.imageUrl);
+              return (
+                <motion.div
+                  key={member.name}
+                  className="bg-paper p-8 rounded-lg border border-panel-dark text-left flex flex-col"
+                  variants={itemVariants}
+                >
+                  <img
+                    src={imgSrc}
+                    alt={member.name}
+                    className="w-24 h-24 rounded-full object-cover shadow-md mb-6"
+                    onError={() => {
+                      if (imgSrc !== '/assets/team/placeholder.jpg') setImgSrc('/assets/team/placeholder.jpg');
+                    }}
+                  />
+                  <div className="flex-grow">
+                    <p className="text-xs font-semibold tracking-widest text-ink/60 uppercase">{member.role}</p>
+                    <h3 className="mt-1 text-2xl font-serif text-ink">{member.name}</h3>
+                    <p className="mt-3 text-base text-ink/80 leading-relaxed">{member.bio}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
