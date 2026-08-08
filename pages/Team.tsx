@@ -7,12 +7,7 @@ import { motion } from 'framer-motion';
 // --- Data for the Team Members ---
 
 const FOUNDERS = [
-  {
-    name: 'Tarun Tejpal',
-    role: 'India',
-    bio: 'Serial disruptor of the editorial, publishing and intellectual landscape. Founder, Indiaink, Tehelka, THINK. Groundbreaking journalist and editor; award-winning novelist.',
-    imageUrl: '/assets/team/tarun-tejpal.jpg', // Add your image here
-  },
+  
   {
     name: 'Payal Puri',
     role: 'India',
