@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  auteur:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: 207613818033.dkr.ecr.ap-south-1.amazonaws.com/auteur:8aug
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
