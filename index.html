@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Auteur Global | Creative Syndicate for the Future of Storytelling</title>
+  <meta name="description" content="Auteur Global is a creative syndicate reimagining literature, comics, and visual storytelling for a new era. Discover Qomix Classics, Qanvas, and more." />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Auteur Global | Creative Syndicate for the Future of Storytelling" />
+  <meta property="og:description" content="Auteur Global is a creative syndicate reimagining literature, comics, and visual storytelling for a new era. Discover Qomix Classics, Qanvas, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://auteur.global/" />
+  <meta property="og:image" content="/assets/og-banner.jpg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Auteur Global | Creative Syndicate for the Future of Storytelling" />
+  <meta name="twitter:description" content="Auteur Global is a creative syndicate reimagining literature, comics, and visual storytelling for a new era. Discover Qomix Classics, Qanvas, and more." />
+  <meta name="twitter:image" content="/assets/og-banner.jpg" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F8F6F2',
+            ink: '#1A1A1A',
+            'ink-soft': '#333333',
+            primary: '#FECF0A',
+            'primary-dark': '#E9BB00',
+            secondary: '#FFFFFF',
+            'body-neutral': '#6b6866',
+            'panel-muted': '#F0EEE9',
+            'panel-dark': '#EAE8E3',
+            'cursor-fill': 'rgba(254, 207, 10, 0.2)',
+          },
+          // FONT FAMILY UPDATED TO USE JOST AND PLAYFAIR DISPLAY
+          fontFamily: {
+            sans: ['Jost', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          backgroundImage: {
+            'dramatic-header': 'linear-gradient(to bottom, #FECF0A, #E9BB00)',
+            'halftone': "radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)",
+            'halftone-yellow': "radial-gradient(circle, rgba(254, 207, 10, 0.5) 1px, transparent 1px)",
+            'halftone-panel': "radial-gradient(circle, rgba(254, 207, 10, 0.2) 1px, transparent 1px)",
+          },
+          backgroundSize: {
+            'halftone-size': '10px 10px',
+          },
+          animation: {
+            'ticker': 'ticker 20s linear infinite',
+            'reveal-staggered': 'reveal 1s ease-out forwards',
+          },
+          keyframes: {
+            ticker: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            reveal: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+        }
+      }
+    }
+  </script>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://aistudiocdn.com/react@^19.2.0",
+      "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+      "react/": "https://aistudiocdn.com/react@^19.2.0/",
+      "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
+      "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.22"
+    }
+  }
+  </script>
+</head>
+<body class="bg-paper overflow-x-hidden">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
