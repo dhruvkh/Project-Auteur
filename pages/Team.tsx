@@ -22,9 +22,16 @@ const FOUNDERS = [
   },
   {
     name: 'Anila Ahuja',
-    role: 'Leads Business Development',
+    role: 'India',
     bio: 'Leads Business Development and fund-raising for Qomix. Founding team at Sanctum Wealth Pvt Ltd, managing USD 6 Bn in assets. 25+ years in wealth management.',
     imageUrl: '/assets/team/anila-ahuja.jpg', // Add your image here
+  },
+
+  {
+    name: 'Amruta Patil',
+    role: 'India',
+    bio: "India's first female graphic novelist. Author of Kari, Parva duology, Aranyaka. Curator of 'A Moving Line: 1500 years of Indian Visual Storytelling' at MAP (Bangalore) and International Museum of Comics (Angoulême, France). Nari Shakti Award 2016.",
+    imageUrl: '/assets/team/amruta-patil.jpeg', // Add your image here
   },
 ];
 
